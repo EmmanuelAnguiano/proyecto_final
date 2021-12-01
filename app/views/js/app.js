@@ -29,14 +29,9 @@ agregar.addEventListener('click',()=>{
 
 let listar=document.getElementById('btnlistar')
 listar.addEventListener('click',()=>{
-    let id=document.getElementById('id').value;
-    let product={id:id};
-    let i;
-    for(i=0;json.length;i++){
     fetch('http://localhost:1340/api/producto',{
         method:'GET',
-        
-        params:JSON.stringify(product),
+        body:JSON.stringify(),
         headers:{
             'Content-Type':'application/json'
         }
@@ -44,13 +39,18 @@ listar.addEventListener('click',()=>{
     .then(res=>res.json())
     .then(json=>{
     let lis=document.getElementById('lis');
+    for(i=0;i<json.lenght;i++){
         lis.innerHTML=`
-        <p>ID: ${json.id} </p>
-        <P>NOMBRE: ${json.name}<p>
-        `
-    });
+        <p>ID: ${json[i].id} </p>
+        <P>NOMBRE: ${json[i].name}<p>
+        <p>QUANTITY: ${json[i].quantity} </p>
+        <p>COSTO: ${json[i].cost} </p>
+        `;
     }
+    console.log(json);
+    });
 });
+
 
 let agregaryfacturar=document.getElementById('btnfacturar');
 agregaryfacturar.addEventListener('click',()=>{
